@@ -1,24 +1,41 @@
 pipeline {
   agent any
   stages {
-    stage('stage1') {
+    stage('Hello') {
       steps {
-        sh '''pwd
-date'''
+        sh '''
+                date
+                pwd
+                ls
+                '''
       }
     }
 
-    stage('stage2') {
+    stage('Hello2') {
       steps {
-        sleep 10
+        sh 'echo "${BUILD_NUMBER}"'
+        sh 'echo "${name}"'
+        sh 'echo "${uname}"'
+        sh 'echo "${person}"'
       }
     }
 
-    stage('stage 3') {
+    stage('Hello3') {
+      environment {
+        uname = 'admin00'
+      }
       steps {
-        echo 'final step'
+        echo 'Hello World3'
+        sh 'echo "${name}"'
+        sh 'echo "${uname}"'
       }
     }
 
+  }
+  environment {
+    name = 'adminp'
+  }
+  parameters {
+    string(name: 'person', defaultValue: 'Enter Name', description: 'Enter full name')
   }
 }
